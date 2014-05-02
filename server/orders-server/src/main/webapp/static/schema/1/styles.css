@@ -1,0 +1,15 @@
+.page_style {
+}
+
+.included_item {
+	font-weight: bolder;
+	font-size: large;
+	color: #E8D069;
+}
+
+.excluded_item {
+}
+
+.category_list_column {
+	width: 220px;
+}

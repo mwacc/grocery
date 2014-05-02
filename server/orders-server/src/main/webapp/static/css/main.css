@@ -1,0 +1,27 @@
+html, body {
+	height: 100%;
+}
+
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -4em;
+}
+
+.footer, .push {
+	height: 4em;
+}
+
+.category_button {
+	width: 200px;
+}
+
+.items_in_category {
+	margin-left:280px;
+	margin-bottom:4px;
+}
+
+.errorField {
+	background-color: #FA5858 !important;
+}

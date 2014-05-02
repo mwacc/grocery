@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	<appender name="GeneralLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/tmp/grocering.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="Threshold" value="INFO"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-4r %d [%t] %-5p %c %x - %m%n" />
+		</layout>
+	</appender>
+	<appender name="UserLoginsMonitor" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/tmp/login.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM" />
+		<param name="Threshold" value="INFO"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd},%d{yyyy-MM-dd HH},%d{yyyy-MM-dd HH:mm:ss.SSS},%m%n" />
+		</layout>
+	</appender>
+	<appender name="PerformanceMonitor" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/tmp/perf.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="Threshold" value="INFO"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd},%d{yyyy-MM-dd HH},%m%n" />
+		</layout>
+	</appender>
+	<appender name="GoodsListMonitor" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/tmp/goods.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM" />
+		<param name="Threshold" value="INFO"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+	<appender name="Registrations" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/tmp/users.log"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="Threshold" value="INFO"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+	<logger name="com.grocery.statistic.UserLoginLog">
+		<appender-ref ref="UserLoginsMonitor" />
+	</logger>
+	<logger name="com.grocery.statistic.RestPerformanceMonitor">
+		<appender-ref ref="PerformanceMonitor" />
+	</logger>
+	<logger name="com.grocery.statistic.GoodsListLogger">
+		<appender-ref ref="GoodsListMonitor" />
+	</logger>
+	<logger name="com.grocery.statistic.UserRegistrator">
+		<appender-ref ref="Registrations" />
+	</logger>
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="GeneralLog" />
+	</root>
+</log4j:configuration>

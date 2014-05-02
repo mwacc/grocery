@@ -1,0 +1,14 @@
+.page_style {
+}
+
+.included_item {
+	font-weight: bolder;
+	font-size: large;
+}
+
+.excluded_item {
+}
+
+.category_list_column {
+	width: 240px;
+}

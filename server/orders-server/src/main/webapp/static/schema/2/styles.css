@@ -1,0 +1,22 @@
+.page_style {
+	background: #000000 url(bg.png) repeat; 
+	color:white;
+}
+
+form {
+	color: #2B2427;
+}
+
+.included_item {
+	color: rgb(2, 158, 25);
+}
+
+.excluded_item {
+	color: white;
+}
+
+.container_bg {
+	background: black; 
+	padding-left: 7px; 
+	padding-right: 7px;
+}

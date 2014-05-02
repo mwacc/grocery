@@ -1,0 +1,115 @@
+user ubuntu;
+worker_processes 4;
+pid /var/run/nginx.pid;
+
+events {
+        worker_connections 1024;
+        # multi_accept on;
+        use epoll;
+}
+
+http {
+
+    ##
+    # Basic Settings
+    ##
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    # server_tokens off;
+
+    # server_names_hash_bucket_size 64;
+    # server_name_in_redirect off;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ##
+    # Logging Settings
+    ##
+                                                                 
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    ##
+    # Gzip Settings
+    ##
+
+    gzip on;
+    gzip_disable "msie6";
+
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types text/plain text/css application/json application/x-javascript text/javascript;
+
+
+    ##
+    # Virtual Host Configs
+    ##
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+
+    upstream backend {
+        #server 127.0.0.1:8000 weight=3;
+        #server 127.0.0.1:8001;
+        #server 127.0.0.1:8002;    
+        server 127.0.0.1:8080;
+    }
+
+    server {
+        listen          80;
+        server_name     grocering.me www.grocering.me;
+        #rewrite ^(.*)   http://grocering.me$1 permanent;
+
+        # serve static files
+        location ~ ^/(static|google|yandex|pluso)/  {
+          root    /var/grocering.me;
+          expires 3d;
+          access_log off;
+        }
+
+        # pass requests for dynamic content
+        location / {
+            proxy_pass http://backend/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $remote_addr;
+
+            proxy_connect_timeout 120;
+            proxy_send_timeout    120;
+            proxy_read_timeout    180;
+        }
+    }
+
+    
+
+}
+
+
+#mail {
+#       # See sample authentication script at:
+#       # http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
+#
+#       # auth_http localhost/auth.php;
+#       # pop3_capabilities "TOP" "USER";
+#       # imap_capabilities "IMAP4rev1" "UIDPLUS";
+#
+#       server {
+#               listen     localhost:110;
+#               protocol   pop3;
+#               proxy      on;
+#       }
+#
+#       server {
+#               listen     localhost:143;
+#               protocol   imap;
+#               proxy      on;
+#       }
+#}
